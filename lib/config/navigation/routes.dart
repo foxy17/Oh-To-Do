@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ohtodo/config/config.dart';
-import 'package:ohtodo/config/features/splash/splash_screen.dart';
+import 'package:ohtodo/pages/pages.dart';
 
 // final _shellNavigatorKey = GlobalKey<NavigatorState>();
 

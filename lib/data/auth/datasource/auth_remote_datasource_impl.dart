@@ -6,7 +6,6 @@ import 'package:logger/logger.dart';
 import 'package:appwrite/models.dart' as model;
 import 'package:ohtodo/core/core.dart';
 import 'auth_remote_datasource.dart';
-import 'package:fpdart/fpdart.dart';
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final Account _account;
@@ -15,7 +14,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl({required Account account}) : _account = account;
 
   @override
-  FutureEither<model.User> signUp(String email, String password) async {
+  Future<Result<model.User>> signUp(String email, String password) async {
     try {
       final user = await _account.create(
         userId: ID.unique(),
@@ -23,88 +22,87 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         password: password,
       );
 
-      return right(user);
+      return Result.success(user);
     } on AppwriteException catch (e, stackTrace) {
       logger.e(e);
 
-      return left(
+      return Result.error(
         Failure(e.message ?? 'Some unexpected error occurred', stackTrace),
       );
     } catch (e, stackTrace) {
-      return left(
-        Failure(e.toString(), stackTrace),
-      );
+      logger.e(e, error: {stackTrace: stackTrace});
+      return Result.error(Failure(e.toString(), stackTrace));
     }
   }
 
   @override
-  FutureEither<model.Session> emailSignIn(String email, String password) async {
+  Future<Result<model.Session>> emailSignIn(
+      String email, String password) async {
     try {
       final session = await _account.createEmailPasswordSession(
         email: email,
         password: password,
       );
 
-      return right(session);
+      return Result.success(session);
     } on AppwriteException catch (e, stackTrace) {
       logger.e(e);
 
-      return left(
+      return Result.error(
         Failure(e.message ?? 'Some unexpected error occurred', stackTrace),
       );
     } catch (e, stackTrace) {
-      return left(
-        Failure(e.toString(), stackTrace),
-      );
+      logger.e(e, error: {stackTrace: stackTrace});
+      return Result.error(Failure(e.toString(), stackTrace));
     }
   }
 
   @override
-  FutureEither<model.User> currentUserAccount() async {
+  Future<Result<model.User>> currentUserAccount() async {
     try {
       final user = await _account.get();
       logger.d('Found active user session from server: ${user.name}');
       await saveUserLocally(user);
-      return right(user);
+      return Result.success(user);
     } on AppwriteException catch (e, stackTrace) {
       final _user = await getUserLocally();
-      if(_user != null) {
+      if (_user != null) {
         logger.d('Found active user session from local storage: ${_user.name}');
-        return right(_user);
+        return Result.success(_user);
       }
 
       logger.e(e);
 
-      if (e.code != 401 || e.type != 'general_unauthorized_scope') rethrow;
-      return left(
+      if (e.code != 401 || e.type != 'general_unauthorized_scope') {
+        rethrow;
+      }
+      return Result.error(
         Failure(e.message ?? 'Some unexpected error occurred', stackTrace),
       );
     } catch (e, stackTrace) {
-      return left(
-        Failure(e.toString(), stackTrace),
-      );
+      logger.e(e, error: {stackTrace: stackTrace});
+      return Result.error(Failure(e.toString(), stackTrace));
     }
   }
 
   @override
-  FutureEitherVoid logout() async {
+  Future<Result<void>> logout() async {
     try {
       await _account.deleteSession(
         sessionId: 'current',
       );
       await removeUserLocally();
 
-      return right(null);
+      return Result.success(null);
     } on AppwriteException catch (e, stackTrace) {
       logger.e(e);
 
-      return left(
+      return Result.error(
         Failure(e.message ?? 'Some unexpected error occurred', stackTrace),
       );
     } catch (e, stackTrace) {
-      return left(
-        Failure(e.toString(), stackTrace),
-      );
+      logger.e(e, error: {stackTrace: stackTrace});
+      return Result.error(Failure(e.toString(), stackTrace));
     }
   }
 
@@ -137,21 +135,20 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  FutureEitherVoid googleSignIn() async {
+  Future<Result<void>> googleSignIn() async {
     try {
       await _account.createOAuth2Session(provider: OAuthProvider.google);
 
-      return right(null);
+      return Result.success(null);
     } on AppwriteException catch (e, stackTrace) {
       logger.e(e);
 
-      return left(
+      return Result.error(
         Failure(e.message ?? 'Some unexpected error occurred', stackTrace),
       );
     } catch (e, stackTrace) {
-      return left(
-        Failure(e.toString(), stackTrace),
-      );
+      logger.e(e, error: {stackTrace: stackTrace});
+      return Result.error(Failure(e.toString(), stackTrace));
     }
   }
 }
