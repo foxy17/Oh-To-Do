@@ -6,7 +6,7 @@ part of 'appwrite_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appwriteClientHash() => r'5e7e053ec5b6b6cdda3668d765d63eddf0326bf9';
+String _$appwriteClientHash() => r'e6e9d6bc130b64a3cad6328b9d4b60676a81f3f3';
 
 /// See also [appwriteClient].
 @ProviderFor(appwriteClient)
@@ -21,7 +21,7 @@ final appwriteClientProvider = AutoDisposeProvider<Client>.internal(
 );
 
 typedef AppwriteClientRef = AutoDisposeProviderRef<Client>;
-String _$appwriteAccountHash() => r'efa0b993ec5facdeb9bd2373e9f5f58e1a81ea53';
+String _$appwriteAccountHash() => r'82a981e818e0b44eeb906a37f7fbd91839a905e4';
 
 /// See also [appwriteAccount].
 @ProviderFor(appwriteAccount)
@@ -36,7 +36,7 @@ final appwriteAccountProvider = AutoDisposeProvider<Account>.internal(
 );
 
 typedef AppwriteAccountRef = AutoDisposeProviderRef<Account>;
-String _$appwriteDatabaseHash() => r'771dd6f66ccc0e8e1e031bccee736e1c97cf3b0b';
+String _$appwriteDatabaseHash() => r'5b8a7b655b430f3abc3ece3132536ce974f18971';
 
 /// See also [appwriteDatabase].
 @ProviderFor(appwriteDatabase)
@@ -51,7 +51,7 @@ final appwriteDatabaseProvider = AutoDisposeProvider<Databases>.internal(
 );
 
 typedef AppwriteDatabaseRef = AutoDisposeProviderRef<Databases>;
-String _$appwriteStorageHash() => r'4471ea05a01efef405da1e43cbc2e59613f7b417';
+String _$appwriteStorageHash() => r'df63e1e9bd5679a4627e84fa426c0bd4d1d76891';
 
 /// See also [appwriteStorage].
 @ProviderFor(appwriteStorage)
@@ -66,7 +66,7 @@ final appwriteStorageProvider = AutoDisposeProvider<Storage>.internal(
 );
 
 typedef AppwriteStorageRef = AutoDisposeProviderRef<Storage>;
-String _$appwriteRealtimeHash() => r'3f77f891b81edbead789f838234d215185088263';
+String _$appwriteRealtimeHash() => r'295975b6f9e6d6809223cf84a313aabca76e8bcf';
 
 /// See also [appwriteRealtime].
 @ProviderFor(appwriteRealtime)

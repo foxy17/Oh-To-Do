@@ -7,5 +7,5 @@ abstract class AuthRepository {
   FutureEither<bool> signUp(String email, String password);
   FutureEither<bool> signIn(SingInProvider provider,{String email, String password});
   FutureEither<model.User> currentUserAccount();
-  FutureEitherVoid  logout();
+  FutureEither<bool>  logout();
 }

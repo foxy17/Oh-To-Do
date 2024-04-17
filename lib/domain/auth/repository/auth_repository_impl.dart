@@ -1,7 +1,8 @@
 import 'package:appwrite/models.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:ohtodo/core/core.dart';
-import 'package:ohtodo/pages/pages.dart';
+import 'package:ohtodo/data/data.dart';
+import 'package:ohtodo/domain/domain.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource _authRemoteDataSource;
@@ -9,47 +10,59 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this._authRemoteDataSource);
 
   @override
-  FutureEither<User> currentUserAccount() {
-    // TODO: implement currentUserAccount
-    throw UnimplementedError();
+  FutureEither<User> currentUserAccount() async {
+    final result =  await _authRemoteDataSource.currentUserAccount();
+    if (result.isSuccess){
+      return Right(result.value!);
+    }
+    return Left(result.error ?? const Failure('Could not get current user account'));
   }
 
   @override
-  FutureEitherVoid logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  FutureEither<bool> logout() async {
+    final result =  await _authRemoteDataSource.logout();
+    if (result.isSuccess){
+      return Right(result.isSuccess);
+    }
+    return Left(result.error ?? const Failure('Could not login with google'));
+
   }
 
   @override
-  FutureEither<User> signIn (
+  FutureEither<bool> signIn (
     SingInProvider provider, {
     String email = "",
     String password = "",
   }) async {
    switch (provider) {
       case SingInProvider.google:
-        await _authRemoteDataSource.googleSignIn();
-        final result = await _authRemoteDataSource.currentUserAccount();
+        final result =  await _authRemoteDataSource.googleSignIn();
         if (result.isSuccess){
-          return Right(result.value!);
+          return Right(result.isSuccess);
         }
 
-        return const Left(Failure('Could not login with google'));
+        return Left(result.error ?? const Failure('Could not login with google'));
 
      case SingInProvider.email:
        final result = await _authRemoteDataSource.emailSignIn(email, password );
 
        if (result.isSuccess){
-         return Right(result.value!);
+         return Right(result.isSuccess);
        }
 
-       return const Left(Failure('Could not login with google'));
+       return Left(result.error ?? const  Failure('Could not login with email'));
    }
   }
 
   @override
-  FutureEither<User> signUp(String email, String password) {
-    // TODO: implement signUp
-    throw UnimplementedError();
+  FutureEither<bool> signUp(String email, String password) async {
+    final result =  await _authRemoteDataSource.signUp(email, password);
+
+    if (result.isSuccess){
+      return Right(result.isSuccess);
+    }
+
+    return Left(result.error ?? const  Failure('Could not login with email'));
+
   }
 }
