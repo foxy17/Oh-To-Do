@@ -1,32 +1,38 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ohtodo/core/constants/appwrite_constants.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part  'appwrite_provider.g.dart';
 
 
-final appwriteClientProvider = Provider((ref) {
+@riverpod
+Client appwriteClient (AppwriteClientRef ref) {
   Client client = Client();
-
-
   return client.setEndpoint(AppwriteConstants.endPoint).setProject(AppwriteConstants.projectId).setSelfSigned(status: true);
-});
+}
 
-final appwriteAccountProvider = Provider((ref) {
+@riverpod
+Account appwriteAccount (AppwriteAccountRef ref) {
   final client = ref.watch(appwriteClientProvider);
   final account = Account(client);
   return account;
-});
+}
 
-final appwriteDatabaseProvider = Provider((ref) {
+@riverpod
+Databases appwriteDatabase (AppwriteDatabaseRef ref) {
   final client = ref.watch(appwriteClientProvider);
   return Databases(client);
-});
+}
 
-final appwriteStorageProvider = Provider((ref) {
+@riverpod
+Storage appwriteStorage (AppwriteStorageRef ref) {
   final client = ref.watch(appwriteClientProvider);
   return Storage(client);
-});
+}
 
-final appwriteRealtimeProvider = Provider((ref) {
+@riverpod
+Realtime appwriteRealtime (AppwriteRealtimeRef ref) {
   final client = ref.watch(appwriteClientProvider);
   return Realtime(client);
-});
+}
