@@ -1,4 +1,4 @@
-import 'package:appwrite/models.dart';
+import 'package:appwrite/models.dart'as model;
 import 'package:fpdart/fpdart.dart';
 import 'package:ohtodo/core/core.dart';
 import 'package:ohtodo/data/data.dart';
@@ -10,7 +10,7 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this._authRemoteDataSource);
 
   @override
-  FutureEither<User> currentUserAccount() async {
+  FutureEither<model.User> currentUserAccount() async {
     final result =  await _authRemoteDataSource.currentUserAccount();
     if (result.isSuccess){
       return Right(result.value!);

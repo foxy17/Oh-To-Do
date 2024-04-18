@@ -1,7 +1,6 @@
 import 'package:appwrite/models.dart' as model;
 import 'package:ohtodo/core/core.dart';
-
-import '../models/sign_in_provider.dart';
+import 'package:ohtodo/data/data.dart';
 
 abstract class AuthRepository {
   FutureEither<bool> signUp(String email, String password);
