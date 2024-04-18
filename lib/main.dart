@@ -8,9 +8,6 @@ initializeDependencies() async {
 
   await Future.wait([
     SharedPrefs.init(),
-    // Firebase.initializeApp(
-    //   options: DefaultFirebaseOptions.currentPlatform,
-    // ),
   ]);
 }
 

@@ -6,6 +6,6 @@ class RouteLocation {
   //routeLocation
   static String get splash => '/splash';
   static String get homeScreen => '/homeScreen';
-  static String get auth => '/auth';
+  static String get login => '/login';
 
 }

@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 part 'color_scheme.dart';
 part 'colors.dart';
 part 'text_theme.dart';
+part 'custom_colors.dart';
 
 @immutable
 class OhToDoTheme {
@@ -13,6 +14,9 @@ class OhToDoTheme {
     fontFamily: GoogleFonts.figtree().fontFamily,
     textTheme: _TextTheme._textTheme,
     scaffoldBackgroundColor: _ColorScheme._lightColorScheme.background,
+    extensions: const <ThemeExtension<dynamic>>[
+      CustomColors.light,
+    ],
   );
 
   static final darkTheme = ThemeData(
@@ -21,6 +25,9 @@ class OhToDoTheme {
     colorScheme: _ColorScheme._darkColorScheme,
     fontFamily: GoogleFonts.figtree().fontFamily,
     textTheme: _TextTheme._textTheme,
-    scaffoldBackgroundColor: Colors.grey.shade900,
+    scaffoldBackgroundColor: _ColorScheme._darkColorScheme.background,
+    extensions: const <ThemeExtension<dynamic>>[
+      CustomColors.dark,
+    ],
   );
 }
