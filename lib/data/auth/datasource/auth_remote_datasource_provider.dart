@@ -7,7 +7,7 @@ import 'auth_remote_datasource_impl.dart';
 
 part  'auth_remote_datasource_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 AuthRemoteDataSource authRemoteDataSource(AuthRemoteDataSourceRef ref) {
   return AuthRemoteDataSourceImpl(account: ref.watch(appwriteAccountProvider));
 }
