@@ -1,2 +1,2 @@
-export 'data/data.dart';
-export 'domain/domain.dart';
+export 'screens/screens.dart';
+export 'provider/provider.dart';
