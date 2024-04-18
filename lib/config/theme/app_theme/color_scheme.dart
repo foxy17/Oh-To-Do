@@ -21,7 +21,7 @@ class _ColorScheme {
   );
 
   static const _darkColorScheme = ColorScheme(
-    brightness: Brightness.light,
+    brightness: Brightness.dark,
     primary: _Colors.primary,
     onPrimary: _Colors.white,
     secondary: _Colors.white,
