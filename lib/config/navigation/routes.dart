@@ -15,6 +15,16 @@ final routes = [
     parentNavigatorKey: navigationKey,
     builder: SplashScreen.builder,
   ),
+  GoRoute(
+    path: RouteLocation.homeScreen,
+    parentNavigatorKey: navigationKey,
+    builder: HomeScreen.builder,
+  ),
+  GoRoute(
+    path: RouteLocation.login,
+    parentNavigatorKey: navigationKey,
+    builder: LoginScreen.builder,
+  ),
   // GoRoute(
   //   path: RouteLocation.createQuote,
   //   parentNavigatorKey: navigationKey,
