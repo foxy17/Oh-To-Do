@@ -11,7 +11,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   FutureEither<model.User> currentUserAccount() async {
-    final result =  await _authRemoteDataSource.currentUserAccount();
+    final result =  await _authRemoteDataSource.isUserAuthenticated();
     if (result.isSuccess){
       return Right(result.value!);
     }
@@ -37,6 +37,7 @@ class AuthRepositoryImpl implements AuthRepository {
    switch (provider) {
       case SingInProvider.google:
         final result =  await _authRemoteDataSource.googleSignIn();
+
         if (result.isSuccess){
           return Right(result.isSuccess);
         }
@@ -65,4 +66,7 @@ class AuthRepositoryImpl implements AuthRepository {
     return Left(result.error ?? const  Failure('Could not login with email'));
 
   }
+
+  @override
+  Stream<model.User?> get authStateChanges => _authRemoteDataSource.authStateChanges;
 }

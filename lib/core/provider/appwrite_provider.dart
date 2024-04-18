@@ -6,32 +6,32 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part  'appwrite_provider.g.dart';
 
 
-@riverpod
+@Riverpod(keepAlive: true)
 Client appwriteClient (AppwriteClientRef ref) {
   Client client = Client();
   return client.setEndpoint(AppwriteConstants.endPoint).setProject(AppwriteConstants.projectId).setSelfSigned(status: true);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Account appwriteAccount (AppwriteAccountRef ref) {
   final client = ref.watch(appwriteClientProvider);
   final account = Account(client);
   return account;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Databases appwriteDatabase (AppwriteDatabaseRef ref) {
   final client = ref.watch(appwriteClientProvider);
   return Databases(client);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Storage appwriteStorage (AppwriteStorageRef ref) {
   final client = ref.watch(appwriteClientProvider);
   return Storage(client);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Realtime appwriteRealtime (AppwriteRealtimeRef ref) {
   final client = ref.watch(appwriteClientProvider);
   return Realtime(client);

@@ -7,4 +7,5 @@ abstract class AuthRepository {
   FutureEither<bool> signIn(SingInProvider provider,{String email, String password});
   FutureEither<model.User> currentUserAccount();
   FutureEither<bool>  logout();
+  Stream<model.User?> get authStateChanges;
 }
