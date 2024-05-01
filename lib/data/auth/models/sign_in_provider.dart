@@ -1,0 +1,4 @@
+enum SingInProvider {
+  google,
+  email,
+}
